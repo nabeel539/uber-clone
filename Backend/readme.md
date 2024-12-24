@@ -121,3 +121,80 @@ POST /users/login
 
 - Email must be valid
 - Password must be at least 6 characters
+
+## Get User Profile
+
+Endpoint for retrieving the authenticated user's profile.
+
+### Endpoint
+
+```
+GET /users/profile
+```
+
+### Headers
+
+| Field         | Value              | Description              |
+| ------------- | ------------------ | ------------------------ |
+| Authorization | Bearer {jwt_token} | JWT authentication token |
+
+### Success Response
+
+- **Status Code**: 200 (OK)
+- **Response Body**:
+
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com"
+}
+```
+
+### Error Responses
+
+- **Status Code**: 401 (Unauthorized)
+  - Missing authentication token
+  - Invalid authentication token
+  - Expired token
+
+## Logout User
+
+Endpoint for logging out the current user and invalidating their token.
+
+### Endpoint
+
+```
+GET /users/logout
+```
+
+### Headers
+
+| Field         | Value              | Description              |
+| ------------- | ------------------ | ------------------------ |
+| Authorization | Bearer {jwt_token} | JWT authentication token |
+
+### Success Response
+
+- **Status Code**: 200 (OK)
+- **Response Body**:
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+### Error Responses
+
+- **Status Code**: 401 (Unauthorized)
+  - Missing authentication token
+  - Invalid authentication token
+  - Expired token
+
+### Notes
+
+- The token will be blacklisted and cannot be used for future requests
+- Both cookie and Authorization header tokens are cleared
