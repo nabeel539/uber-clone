@@ -63,3 +63,61 @@ POST /users/register
 - Email must be valid
 - First name must be at least 3 characters
 - Password must be at least 6 characters
+
+## Login User
+
+Endpoint for logging in an existing user.
+
+### Endpoint
+
+```
+POST /users/login
+```
+
+### Request Body
+
+| Field    | Type   | Description                         | Required |
+| -------- | ------ | ----------------------------------- | -------- |
+| email    | String | User's email address                | Yes      |
+| password | String | User's password (min. 6 characters) | Yes      |
+
+### Example Request
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+### Success Response
+
+- **Status Code**: 200 (OK)
+- **Response Body**:
+
+```json
+{
+  "token": "jwt_token_string",
+  "user": {
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+  }
+}
+```
+
+### Error Responses
+
+- **Status Code**: 400 (Bad Request)
+  - Invalid email format
+  - Password less than 6 characters
+  - Missing required fields
+- **Status Code**: 401 (Unauthorized)
+  - Invalid email or password
+
+### Validation Rules
+
+- Email must be valid
+- Password must be at least 6 characters
