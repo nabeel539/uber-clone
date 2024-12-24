@@ -196,5 +196,4 @@ GET /users/logout
 
 ### Notes
 
-- The token will be blacklisted and cannot be used for future requests
-- Both cookie and Authorization header tokens are cleared
+- The token will be blacklisted and cannot be used for future requests , both cookie and Authorization header tokens are cleared
