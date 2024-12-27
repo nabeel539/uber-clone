@@ -288,3 +288,144 @@ Create a new captain account with vehicle details.
 - Vehicle plate less than 3 characters
 - Invalid vehicle type
 - Missing required fields
+
+### Login Captain
+
+Authenticate an existing captain account.
+
+#### `POST /captains/login`
+
+### Request Body
+
+| Field    | Type   | Description                            | Required |
+| -------- | ------ | -------------------------------------- | -------- |
+| email    | String | Captain's email address                | Yes      |
+| password | String | Captain's password (min. 6 characters) | Yes      |
+
+```json
+{
+  "email": "jane@example.com",
+  "password": "password123"
+}
+```
+
+### Success Response
+
+- **Status Code**: 200 (OK)
+
+```json
+{
+  "captain": {
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "status": "inactive"
+  },
+  "token": "jwt_token_string"
+}
+```
+
+### Error Response
+
+- **Status Code**: 401 (Unauthorized)
+
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+### Get Captain Profile
+
+Retrieve authenticated captain's profile information.
+
+### Endpoint
+
+#### `GET /captains/profile`
+
+### Request Headers
+
+| Header          | Type   | Description                  | Required |
+| --------------- | ------ | ---------------------------- | -------- |
+| `Authorization` | string | JWT token for authentication | `true`   |
+
+### Response
+
+- **Status Code**: 200 (OK)
+
+```json
+{
+  "captain": {
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "status": "inactive"
+  }
+}
+```
+
+### Error Response
+
+- **Status Code**: 401 (Unauthorized)
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+### Logout Captain
+
+Log out the currently authenticated captain.
+
+### Endpoint
+
+#### `GET /captains/logout`
+
+### Headers
+
+| field           | value              | Description |
+| --------------- | ------------------ | ----------- |
+| `Authorization` | Bearer {jwt_token} | JWT token   |
+
+### Response
+
+- **Status Code**: 200 (OK)
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+### Error Response
+
+- **Status Code**: 401 (Unauthorized)
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+### Notes
+
+- Token will be blacklisted after logout
+- Both cookie and Authorization header tokens are cleared
+- Blacklisted tokens cannot be reused
