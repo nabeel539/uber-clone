@@ -196,5 +196,95 @@ GET /users/logout
 
 ### Notes
 
-- The token will be blacklisted and cannot be used for future requests
-- Both cookie and Authorization header tokens are cleared
+- The token will be blacklisted and cannot be used for future requests , both cookie and Authorization header tokens are cleared
+
+## Captain Endpoints
+
+### Register Captain
+
+Create a new captain account with vehicle details.
+
+#### `POST /captains/register`
+
+#### Request Headers
+
+| Field        | Type   | Description      |
+| ------------ | ------ | ---------------- |
+| Content-Type | String | application/json |
+
+#### Request Body
+
+| Field               | Type   | Required | Description         |
+| ------------------- | ------ | -------- | ------------------- |
+| fullname.firstname  | String | Yes      | Min 3 chars         |
+| fullname.lastname   | String | No       | Min 3 chars         |
+| email               | String | Yes      | Valid email         |
+| password            | String | Yes      | Min 6 chars         |
+| vehicle.color       | String | Yes      | Min 3 chars         |
+| vehicle.plate       | String | Yes      | Min 3 chars         |
+| vehicle.capacity    | Number | Yes      | Min 1               |
+| vehicle.vehicleType | String | Yes      | car/motorcycle/auto |
+
+#### Example Request
+
+```json
+{
+  "fullname": {
+    "firstname": "Jane",
+    "lastname": "Doe"
+  },
+  "email": "jane@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Success Response
+
+- **Status Code**: 201 (Created)
+- **Response Body**:
+
+```json
+{
+  "captain": {
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  },
+  "token": "jwt_token_string"
+}
+```
+
+### Error Responses
+
+- **Status Code**: 400 (Bad Request)
+- **Response Body**:
+
+```json
+{
+  "message": "Captain already exists"
+}
+```
+
+### Validation Rules
+
+- Invalid email format
+- First name less than 3 characters
+- Password less than 6 characters
+- Vehicle color less than 3 characters
+- Vehicle plate less than 3 characters
+- Invalid vehicle type
+- Missing required fields
