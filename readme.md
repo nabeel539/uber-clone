@@ -198,9 +198,9 @@ GET /users/logout
 
 - The token will be blacklisted and cannot be used for future requests , both cookie and Authorization header tokens are cleared
 
-## Captain Endpoints
+### ** Captain Endpoints**
 
-### Register Captain
+## Register Captain
 
 Create a new captain account with vehicle details.
 
@@ -289,7 +289,7 @@ Create a new captain account with vehicle details.
 - Invalid vehicle type
 - Missing required fields
 
-### Login Captain
+## Login Captain
 
 Authenticate an existing captain account.
 
@@ -390,7 +390,7 @@ Retrieve authenticated captain's profile information.
 }
 ```
 
-### Logout Captain
+## Logout Captain
 
 Log out the currently authenticated captain.
 
